@@ -3,9 +3,10 @@ package com.titan;
 import java.awt.*;
 
 public class Tank {
-    private int x ;
-    private int y ;
+    private int x;
+    private int y;
     private Dir dir;
+    private final int SPEED = 5;
 
     public Tank(int x, int y, Dir dir) {
         this.x = x;
@@ -38,22 +39,27 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        g.fillRect(x,y,50,50);
-        switch (dir){
+        g.fillRect(x, y, 50, 50);
+    }
+
+    public void moving(boolean b) {
+        if (!b) return;
+        switch (dir) {
             case UP:
-                y -= 10;
+                y -= SPEED;
                 break;
             case DOWN:
-                y += 10;
+                y += SPEED;
                 break;
             case LEFT:
-                x -= 10;
+                x -= SPEED;
                 break;
             case RIGHT:
-                x +=10;
+                x += SPEED;
                 break;
             default:
                 break;
         }
     }
+
 }
