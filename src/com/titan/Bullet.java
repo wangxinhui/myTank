@@ -2,19 +2,20 @@ package com.titan;
 
 import java.awt.*;
 
-public class Tank {
-    private int x;
-    private int y;
-    private Dir dir;
-    private TankFrame tf;
-    private final int SPEED = 5;
+public class Bullet {
 
-    public Tank(int x, int y, Dir dir,TankFrame tf) {
+    public Bullet(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
     }
+
+    private final int SPEED = 10;
+    private int x ;
+    private int y ;
+    private Dir dir;
+    private TankFrame tf;
 
     public int getX() {
         return x;
@@ -41,13 +42,13 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color c = Color.cyan;
+        Color c = Color.red;
         g.setColor(c);
-        g.fillRect(x, y, 50, 50);
+        g.fillOval(x, y, 50, 50);
+        move();
     }
 
-    public void moving(boolean b) {
-        if (!b) return;
+    public void move() {
         switch (dir) {
             case UP:
                 y -= SPEED;
@@ -64,9 +65,9 @@ public class Tank {
             default:
                 break;
         }
-    }
 
-    public void fire() {
-        tf.bulletList.add(new Bullet(this.x, this.y, this.dir,this.tf));
+        if (x < 0 || y < 0 || x > TankFrame.WIDTH || y> TankFrame.HEIGHT){
+            tf.bulletList.remove(this);
+        }
     }
 }
